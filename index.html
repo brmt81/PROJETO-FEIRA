@@ -1,77 +1,378 @@
-// CÓDIGO DO MODAL 
-const btnAjuda = document.querySelector(".botao-ajuda");
-const btnFechar = document.querySelector(".botao-fechar");
-const modal = document.querySelector(".modal-fundo");
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-if (btnAjuda && modal) {
-    btnAjuda.addEventListener("click", () => modal.style.display = "block");
-}
-if (btnFechar && modal) {
-    btnFechar.addEventListener("click", () => modal.style.display = "none");
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-// TAMANHO DE FONTES
-let tamanhoFonteAtual = 16;
-const passo = 2;
-const FONTE_MINIMA = 12;
-const FONTE_MAXIMA = 24;
+    <meta name="description"
+        content="Site educativo sobre astigmatismo, seus sintomas, diagnóstico e formas de correção.">
 
-const btnAumentaFonte = document.getElementById("btnAumentaTexto");
-const btnDiminuiFonte = document.getElementById("btnDiminuiTexto");
+    <title>Astigmatismo — Informação e Saúde Visual</title>
 
-if (btnAumentaFonte) {
-    btnAumentaFonte.addEventListener("click", () => {
-        if (tamanhoFonteAtual < FONTE_MAXIMA) {
-            tamanhoFonteAtual += passo;
-            document.documentElement.style.fontSize = `${tamanhoFonteAtual}px`;
-        }
-    });
-}
+    <link rel="stylesheet" href="style.css">
+</head>
 
-if (btnDiminuiFonte) {
-    btnDiminuiFonte.addEventListener("click", () => {
-        if (tamanhoFonteAtual > FONTE_MINIMA) {
-            tamanhoFonteAtual -= passo;
-            document.documentElement.style.fontSize = `${tamanhoFonteAtual}px`;
-        }
-    });
-}
+<body>
 
-// LEITURA DE TELA (TEXT-TO-SPEECH)
-let lendo = false;
-const btnLeitura = document.querySelector(".botao-leitura");
+    <!-- MENU DE ACESSIBILIDADE -->
+    <nav class="barra-acessibilidade" aria-label="Controles de acessibilidade">
 
-if (btnLeitura) {
-    btnLeitura.addEventListener("click", alternarLeitura);
-}
+        <button id="btnAumentaTexto"
+            class="botao-controle"
+            title="Aumentar tamanho do texto"
+            aria-label="Aumentar tamanho do texto">
+            A+
+        </button>
 
-function alternarLeitura() {
-    // Se não houver suporte no navegador
-    if (!('speechSynthesis' in window)) return;
+        <button id="btnDiminuiTexto"
+            class="botao-controle"
+            title="Diminuir tamanho do texto"
+            aria-label="Diminuir tamanho do texto">
+            A-
+        </button>
 
-    if (speechSynthesis.speaking) {
-        if (speechSynthesis.paused) {
-            speechSynthesis.resume();
-        } else {
-            speechSynthesis.pause();
-        }
-        return;
-    }
+        <button id="btnVoz"
+            class="botao-controle botao-leitura"
+            title="Ler conteúdo em voz alta"
+            aria-label="Ler conteúdo em voz alta">
+            🔊 Ler em voz alta
+        </button>
 
-    const conteudo = document.querySelector("main");
-    if (!conteudo) return;
+    </nav>
 
-    const fala = new SpeechSynthesisUtterance(conteudo.innerText);
-    fala.lang = "pt-BR";
 
-    fala.onend = finalizarLeitura;
-    fala.onerror = finalizarLeitura; // Limpa o estado em caso de erro
+    <main>
 
-    speechSynthesis.cancel(); // Limpa leituras anteriores pendentes
-    speechSynthesis.speak(fala);
-    lendo = true;
-}
+        <!-- CABEÇALHO -->
+        <section class="banner">
 
-function finalizarLeitura() {
-    lendo = false;
-}
+            <h1>Astigmatismo</h1>
+
+            <p>
+                Entenda o que é, quais são os sintomas
+                e como a condição pode ser corrigida.
+            </p>
+
+            <a href="#o-que-e" class="botao-principal">
+                SAIBA MAIS
+            </a>
+
+        </section>
+
+
+        <div class="conteudo">
+
+            <!-- INTRODUÇÃO -->
+            <section id="o-que-e">
+
+                <h2>O que é astigmatismo?</h2>
+
+                <div class="caixa-informacao">
+
+                    <p>
+                        O astigmatismo é um erro de refração que pode ocorrer
+                        quando a córnea ou o cristalino apresenta uma curvatura
+                        irregular.
+                    </p>
+
+                    <p>
+                        Essa alteração pode fazer com que a luz seja focalizada
+                        de maneira diferente na retina, provocando uma visão
+                        embaçada ou distorcida.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- ESPAÇO PARA IMAGEM -->
+            <section id="imagem-principal">
+
+                <h2>Como o astigmatismo afeta a visão?</h2>
+
+                <div class="espaco-imagem">
+
+                    <span>ESPAÇO PARA IMAGEM</span>
+
+                    <p>
+                        Insira aqui uma imagem ilustrativa
+                        comparando uma visão normal com uma visão
+                        afetada pelo astigmatismo.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- SINTOMAS -->
+            <section id="sintomas">
+
+                <h2>Principais sintomas</h2>
+
+                <div class="grade-cartoes">
+
+                    <article class="cartao">
+
+                        <div class="icone">👁️</div>
+
+                        <h3>Visão embaçada</h3>
+
+                        <p>
+                            Objetos e textos podem parecer desfocados
+                            ou distorcidos.
+                        </p>
+
+                    </article>
+
+
+                    <article class="cartao">
+
+                        <div class="icone">📖</div>
+
+                        <h3>Dificuldade para focar</h3>
+
+                        <p>
+                            Pode haver dificuldade para manter
+                            a visão nítida durante a leitura.
+                        </p>
+
+                    </article>
+
+
+                    <article class="cartao">
+
+                        <div class="icone">💡</div>
+
+                        <h3>Dificuldade à noite</h3>
+
+                        <p>
+                            Algumas pessoas podem apresentar
+                            dificuldade para enxergar em ambientes
+                            com pouca iluminação.
+                        </p>
+
+                    </article>
+
+
+                    <article class="cartao">
+
+                        <div class="icone">😣</div>
+
+                        <h3>Cansaço visual</h3>
+
+                        <p>
+                            O esforço para focar pode estar associado
+                            a cansaço visual e dores de cabeça.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- VÍDEO -->
+            <section id="video">
+
+                <h2>Vídeo educativo</h2>
+
+                <div class="espaco-video">
+
+                    <div class="icone-video">▶</div>
+
+                    <h3>Espaço reservado para vídeo</h3>
+
+                    <p>
+                        Você pode colocar aqui um vídeo educativo
+                        sobre astigmatismo.
+                    </p>
+
+                    <!--
+                    Para adicionar um vídeo do YouTube,
+                    substitua este espaço por um iframe.
+
+                    Exemplo:
+
+                    <iframe
+                        src="LINK_DO_VIDEO"
+                        title="Vídeo educativo sobre astigmatismo"
+                        allowfullscreen>
+                    </iframe>
+                    -->
+
+                </div>
+
+            </section>
+
+
+            <!-- DIAGNÓSTICO -->
+            <section id="diagnostico">
+
+                <h2>Como é feito o diagnóstico?</h2>
+
+                <div class="caixa-informacao">
+
+                    <p>
+                        O diagnóstico deve ser realizado por um profissional
+                        de saúde especializado em visão, por meio de uma
+                        avaliação ocular.
+                    </p>
+
+                    <p>
+                        O exame pode identificar alterações na refração
+                        e ajudar a determinar a melhor forma de correção
+                        para cada pessoa.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- CORREÇÃO -->
+            <section id="correcao">
+
+                <h2>Como o astigmatismo pode ser corrigido?</h2>
+
+                <div class="grade-cartoes">
+
+                    <article class="cartao">
+
+                        <div class="icone">👓</div>
+
+                        <h3>Óculos</h3>
+
+                        <p>
+                            Óculos com lentes adequadas podem corrigir
+                            o erro de refração.
+                        </p>
+
+                    </article>
+
+
+                    <article class="cartao">
+
+                        <div class="icone">🔵</div>
+
+                        <h3>Lentes de contato</h3>
+
+                        <p>
+                            Em alguns casos, lentes de contato podem
+                            ser indicadas por um profissional.
+                        </p>
+
+                    </article>
+
+
+                    <article class="cartao">
+
+                        <div class="icone">🩺</div>
+
+                        <h3>Avaliação profissional</h3>
+
+                        <p>
+                            O tratamento adequado depende da avaliação
+                            individual de cada pessoa.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- SEGUNDO ESPAÇO PARA IMAGEM -->
+            <section id="galeria">
+
+                <h2>Imagens sobre o tema</h2>
+
+                <div class="grade-imagens">
+
+                    <div class="espaco-imagem pequeno">
+                        <span>IMAGEM 1</span>
+                    </div>
+
+                    <div class="espaco-imagem pequeno">
+                        <span>IMAGEM 2</span>
+                    </div>
+
+                    <div class="espaco-imagem pequeno">
+                        <span>IMAGEM 3</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- LINK EXTERNO -->
+            <section id="fontes">
+
+                <h2>Saiba mais</h2>
+
+                <div class="caixa-link">
+
+                    <p>
+                        Para obter informações adicionais sobre
+                        astigmatismo e saúde ocular, consulte uma
+                        fonte especializada.
+                    </p>
+
+                    <a
+                        href="https://www.einstein.br/n/glossario-de-saude/astigmatismo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="botao-link">
+
+                        Acessar fonte sobre astigmatismo ↗
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- AVISO -->
+            <section class="aviso">
+
+                <h2>Importante</h2>
+
+                <p>
+                    Este site possui finalidade educativa e não substitui
+                    uma avaliação realizada por um profissional de saúde.
+                </p>
+
+            </section>
+
+        </div>
+
+
+        <!-- RODAPÉ -->
+        <footer>
+
+            <p>
+                <strong>Astigmatismo — Informação e Acessibilidade</strong>
+            </p>
+
+            <p>
+                Projeto educativo sobre saúde visual.
+            </p>
+
+        </footer>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
+```

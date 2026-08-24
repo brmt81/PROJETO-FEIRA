@@ -1,10 +1,12 @@
+```css
 :root {
-    --primaria: #003366;
-    --secundaria: #ffcc00;
-    --perigo: #cc0000;
-    --texto: #1a1a1a;
-    --fundo: #ffffff;
-    --fundo-cartao: #f0f4f8;
+    --primaria: #155e75;
+    --secundaria: #38bdf8;
+    --destaque: #0ea5e9;
+    --texto: #17202a;
+    --fundo: #f8fafc;
+    --cartao: #ffffff;
+    --borda: #cbd5e1;
 }
 
 * {
@@ -13,230 +15,417 @@
     padding: 0;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    font-size: 22px;
-    /* Fonte aumentada para leitura */
-    line-height: 1.5;
-    color: var(--texto);
-    background-color: var(--fundo);
+html {
+    scroll-behavior: smooth;
 }
 
-/* --- MENU DE ACESSIBILIDADE --- */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--texto);
+    background: var(--fundo);
+}
+
+
+/* ACESSIBILIDADE */
+
 .barra-acessibilidade {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background: #333;
-    color: white;
+
+    background: #1e293b;
     padding: 10px;
+
     display: flex;
     justify-content: center;
-    gap: 15px;
-    z-index: 1000;
+    align-items: center;
+
+    gap: 12px;
     flex-wrap: wrap;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+    z-index: 1000;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 .botao-controle {
     background: white;
-    color: #333;
-    border: 2px solid var(--secundaria);
-    padding: 10px 15px;
-    font-weight: bold;
-    cursor: pointer;
+    color: #111827;
+
+    border: 3px solid var(--secundaria);
+
+    padding: 10px 16px;
+
     border-radius: 8px;
+
     font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-weight: bold;
+
+    cursor: pointer;
 }
 
-.botao-controle:hover {
+.botao-controle:hover,
+.botao-controle:focus {
     background: var(--secundaria);
+    outline: 3px solid white;
 }
 
 .botao-leitura {
-    background: #28a745;
+    background: #16a34a;
     color: white;
-    border: none;
+    border-color: #16a34a;
 }
 
-/* 1. Início: Banner com Botão de Ajuda */
+
+/* BANNER */
+
 .banner {
-    background-color: var(--primaria);
+    background: linear-gradient(
+        135deg,
+        #155e75,
+        #0e7490
+    );
+
     color: white;
-    padding: 50px 20px;
+
     text-align: center;
-    border-bottom: 10px solid var(--secundaria);
+
+    padding: 120px 20px 60px;
+
+    border-bottom: 8px solid var(--secundaria);
 }
 
 .banner h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin-bottom: 20px;
-    padding-top: 70px;
 }
 
-.botao-ajuda {
+.banner p {
+    max-width: 750px;
+    margin: 0 auto 30px;
+    font-size: 1.2rem;
+}
+
+.botao-principal {
     display: inline-block;
-    background-color: var(--perigo);
-    color: white;
-    padding: 20px 40px;
-    text-decoration: none;
+
+    background: white;
+    color: var(--primaria);
+
+    padding: 16px 30px;
+
+    border-radius: 30px;
+
     font-weight: bold;
-    border-radius: 50px;
-    font-size: 1.5rem;
-    border: 4px solid white;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s;
+    text-decoration: none;
+
+    border: 3px solid white;
 }
 
-.botao-ajuda:active {
-    transform: scale(0.95);
+.botao-principal:hover,
+.botao-principal:focus {
+    background: var(--secundaria);
+    color: #082f49;
 }
+
+
+/* CONTEÚDO */
 
 .conteudo {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 25px;
 }
 
-.modal-fundo {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-/* O que fazer agora? */
-.modal-conteudo {
-    background-color: #fff9e6;
-    padding: 40px;
-    border-radius: 15px;
-    border: 2px dashed var(--primaria);
-
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    max-width: 90%;
-    width: 600px;
-    margin: 0 !important;
-}
-
-ol {
-    padding: 40px;
+section {
+    margin-bottom: 55px;
 }
 
 h2 {
     color: var(--primaria);
+
     border-bottom: 4px solid var(--secundaria);
-    margin: 40px 0 20px;
+
     padding-bottom: 10px;
+
+    margin-bottom: 25px;
+
     font-size: 2rem;
 }
 
-/* 2. Dicas Importantes */
-.grade-dicas {
+h3 {
+    color: var(--primaria);
+    margin-bottom: 10px;
+}
+
+
+/* CAIXAS DE INFORMAÇÃO */
+
+.caixa-informacao {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    border-left: 10px solid var(--primaria);
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.caixa-informacao p + p {
+    margin-top: 18px;
+}
+
+
+/* CARTÕES */
+
+.grade-cartoes {
     display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
     gap: 20px;
 }
 
-.cartao-dica {
-    background: var(--fundo-cartao);
-    padding: 20px;
+.cartao {
+    background: var(--cartao);
+
+    padding: 25px;
+
     border-radius: 15px;
-    border-left: 15px solid var(--primaria);
+
+    border: 2px solid var(--borda);
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
 }
 
-.cartao-dica strong {
-    display: block;
-    font-size: 1.4rem;
-    margin-bottom: 5px;
-    color: var(--primaria);
+.cartao:hover {
+    border-color: var(--secundaria);
 }
 
-/* 3. Direitos na Internet */
-.caixa-direitos {
-    background-color: #fff9e6;
-    padding: 40px;
+.icone {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+
+/* ESPAÇO PARA IMAGENS */
+
+.espaco-imagem {
+    min-height: 280px;
+
+    background:
+        repeating-linear-gradient(
+            45deg,
+            #e2e8f0,
+            #e2e8f0 10px,
+            #f8fafc 10px,
+            #f8fafc 20px
+        );
+
+    border: 3px dashed var(--primaria);
+
     border-radius: 15px;
-    border: 2px dashed var(--primaria);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 30px;
+
+    color: #334155;
 }
 
-.caixa-direitos p {
+.espaco-imagem span {
+    font-size: 1.5rem;
+    font-weight: bold;
+
     margin-bottom: 15px;
 }
 
-/* --- SEÇÃO GOLPES --- */
-.alerta-golpe {
-    list-style: none;
+.grade-imagens {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(200px, 1fr));
+
     gap: 20px;
 }
 
-.alerta-golpe li {
-    background: #fff5f5;
-    padding: 25px;
-    border-radius: 20px;
-    border: 2px solid #ffe3e3;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    transition: background 0.2s;
+.espaco-imagem.pequeno {
+    min-height: 200px;
 }
 
-.alerta-golpe li:hover {
-    background: #fff1f1;
-}
 
-.alerta-golpe .icone-alerta {
-    font-size: 2.5rem;
-    background: var(--branco);
-    width: 70px;
-    height: 70px;
+/* VÍDEO */
+
+.espaco-video {
+    min-height: 400px;
+
+    background: #0f172a;
+
+    color: white;
+
+    border-radius: 15px;
+
+    border: 4px solid var(--primaria);
+
     display: flex;
-    align-items: center;
+
+    flex-direction: column;
+
     justify-content: center;
-    border-radius: 50%;
-    flex-shrink: 0;
-    box-shadow: 0 4px 8px rgba(211, 47, 47, 0.1);
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 30px;
 }
+
+.icone-video {
+    font-size: 4rem;
+
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    background: white;
+    color: var(--primaria);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+
+/* LINK EXTERNO */
+
+.caixa-link {
+    background: #e0f2fe;
+
+    border: 2px solid var(--secundaria);
+
+    border-radius: 15px;
+
+    padding: 30px;
+}
+
+.botao-link {
+    display: inline-block;
+
+    margin-top: 20px;
+
+    background: var(--primaria);
+
+    color: white;
+
+    padding: 15px 25px;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+.botao-link:hover,
+.botao-link:focus {
+    background: #0e7490;
+
+    outline: 3px solid #082f49;
+}
+
+
+/* AVISO */
+
+.aviso {
+    background: #fff7ed;
+
+    border: 2px solid #fb923c;
+
+    border-radius: 15px;
+
+    padding: 25px;
+}
+
+.aviso h2 {
+    color: #9a3412;
+}
+
+
+/* RODAPÉ */
 
 footer {
-    display: block;
-    background: var(--primaria);
+    background: #0f172a;
+
     color: white;
+
     text-align: center;
+
     padding: 40px 20px;
-    margin-top: 50px;
+
+    margin-top: 30px;
 }
 
-/* Ajustes para Celular */
+
+/* FOCO DO TECLADO */
+
+a:focus,
+button:focus {
+    outline: 4px solid #facc15;
+    outline-offset: 3px;
+}
+
+
+/* CELULAR */
+
 @media (max-width: 600px) {
+
     body {
-        font-size: 20px;
+        font-size: 18px;
+    }
+
+    .barra-acessibilidade {
+        gap: 6px;
+    }
+
+    .botao-controle {
+        padding: 8px 12px;
+    }
+
+    .banner {
+        padding-top: 150px;
     }
 
     .banner h1 {
-        font-size: 1.8rem;
-        padding-top: 80px;
+        font-size: 2.2rem;
     }
 
-    .botao-ajuda {
-        width: 100%;
-        padding: 15px;
+    .conteudo {
+        padding: 18px;
+    }
+
+    h2 {
+        font-size: 1.7rem;
+    }
+
+    .espaco-video {
+        min-height: 300px;
     }
 }
-
-/* Rolagem suave para o botão funcionar elegantemente */
-html {
-    scroll-behavior: smooth;
-}
+```
