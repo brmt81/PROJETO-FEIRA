@@ -1,118 +1,80 @@
-```javascript
 // ==========================================
-// CONTROLES DE TAMANHO DA FONTE
+// ACESSIBILIDADE - TAMANHO DA FONTE
 // ==========================================
 
-let tamanhoFonteAtual = 20;
+let tamanhoFonte = 20;
 
+const tamanhoMinimo = 14;
+const tamanhoMaximo = 32;
 const passo = 2;
 
-const FONTE_MINIMA = 14;
-const FONTE_MAXIMA = 30;
+const botaoAumentar = document.getElementById("btnAumentaTexto");
+const botaoDiminuir = document.getElementById("btnDiminuiTexto");
+const botaoVoz = document.getElementById("btnVoz");
 
 
-const btnAumentaFonte =
-    document.getElementById("btnAumentaTexto");
+// AUMENTAR FONTE
+botaoAumentar.addEventListener("click", function () {
 
-const btnDiminuiFonte =
-    document.getElementById("btnDiminuiTexto");
+    if (tamanhoFonte < tamanhoMaximo) {
 
+        tamanhoFonte += passo;
 
-if (btnAumentaFonte) {
+        document.body.style.fontSize = tamanhoFonte + "px";
+    }
 
-    btnAumentaFonte.addEventListener("click", () => {
-
-        if (tamanhoFonteAtual < FONTE_MAXIMA) {
-
-            tamanhoFonteAtual += passo;
-
-            document.documentElement.style.fontSize =
-                `${tamanhoFonteAtual}px`;
-
-        }
-
-    });
-
-}
+});
 
 
-if (btnDiminuiFonte) {
+// DIMINUIR FONTE
+botaoDiminuir.addEventListener("click", function () {
 
-    btnDiminuiFonte.addEventListener("click", () => {
+    if (tamanhoFonte > tamanhoMinimo) {
 
-        if (tamanhoFonteAtual > FONTE_MINIMA) {
+        tamanhoFonte -= passo;
 
-            tamanhoFonteAtual -= passo;
+        document.body.style.fontSize = tamanhoFonte + "px";
+    }
 
-            document.documentElement.style.fontSize =
-                `${tamanhoFonteAtual}px`;
-
-        }
-
-    });
-
-}
+});
 
 
 // ==========================================
 // LEITURA EM VOZ ALTA
 // ==========================================
 
-const btnLeitura =
-    document.getElementById("btnVoz");
+let falando = false;
 
 
-let lendo = false;
+// Quando clicar no botão
+botaoVoz.addEventListener("click", function () {
 
-
-if (btnLeitura) {
-
-    btnLeitura.addEventListener(
-        "click",
-        alternarLeitura
-    );
-
-}
-
-
-function alternarLeitura() {
-
-    // Verifica se o navegador suporta leitura
+    // Verifica se o navegador possui o recurso
     if (!("speechSynthesis" in window)) {
 
         alert(
-            "Seu navegador não possui suporte à leitura em voz alta."
+            "Seu navegador não suporta leitura em voz alta."
         );
 
         return;
     }
 
 
-    // Se estiver lendo, pausa
-    if (speechSynthesis.speaking) {
+    // Se já estiver falando, para
+    if (falando) {
 
-        if (speechSynthesis.paused) {
+        window.speechSynthesis.cancel();
 
-            speechSynthesis.resume();
+        falando = false;
 
-            btnLeitura.innerHTML =
-                "⏸️ Pausar leitura";
-
-        } else {
-
-            speechSynthesis.pause();
-
-            btnLeitura.innerHTML =
-                "▶️ Continuar leitura";
-
-        }
+        botaoVoz.innerHTML = "🔊 Ler em voz alta";
 
         return;
     }
 
 
-    const conteudo =
-        document.querySelector("main");
+    // Pega o conteúdo principal
+    const conteudo = document.querySelector("main");
 
 
     if (!conteudo) {
@@ -120,11 +82,11 @@ function alternarLeitura() {
     }
 
 
-    // Obtém somente o texto da página
-    const texto =
-        conteudo.innerText;
+    // Copia apenas o texto da página
+    const texto = conteudo.innerText;
 
 
+    // Cria a fala
     const fala =
         new SpeechSynthesisUtterance(texto);
 
@@ -132,66 +94,48 @@ function alternarLeitura() {
     // Português do Brasil
     fala.lang = "pt-BR";
 
-
-    // Velocidade da leitura
+    // Velocidade
     fala.rate = 0.9;
 
-
-    // Tom da voz
+    // Tom
     fala.pitch = 1;
 
 
-    fala.onstart = () => {
+    // Quando começar
+    fala.onstart = function () {
 
-        lendo = true;
+        falando = true;
 
-        btnLeitura.innerHTML =
-            "⏸️ Pausar leitura";
-
+        botaoVoz.innerHTML =
+            "⏹️ Parar leitura";
     };
 
 
-    fala.onend = finalizarLeitura;
+    // Quando terminar
+    fala.onend = function () {
+
+        falando = false;
+
+        botaoVoz.innerHTML =
+            "🔊 Ler em voz alta";
+    };
 
 
-    fala.onerror = finalizarLeitura;
+    // Caso aconteça algum erro
+    fala.onerror = function () {
+
+        falando = false;
+
+        botaoVoz.innerHTML =
+            "🔊 Ler em voz alta";
+    };
 
 
     // Cancela qualquer leitura anterior
-    speechSynthesis.cancel();
+    window.speechSynthesis.cancel();
 
 
     // Começa a leitura
-    speechSynthesis.speak(fala);
-
-}
-
-
-// ==========================================
-// FINALIZAÇÃO DA LEITURA
-// ==========================================
-
-function finalizarLeitura() {
-
-    lendo = false;
-
-    btnLeitura.innerHTML =
-        "🔊 Ler em voz alta";
-
-}
-
-
-// ==========================================
-// PARAR LEITURA AO SAIR DA PÁGINA
-// ==========================================
-
-window.addEventListener("beforeunload", () => {
-
-    if ("speechSynthesis" in window) {
-
-        speechSynthesis.cancel();
-
-    }
+    window.speechSynthesis.speak(fala);
 
 });
-```
